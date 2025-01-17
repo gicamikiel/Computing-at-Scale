@@ -1,4 +1,9 @@
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+extern "C" {
+#include "mmio.h"
+}
 
 void matrix_vector(int rows, int cols, double* A, double* v, double* out) {
     for(int r=0; r<rows; r++) {
@@ -47,10 +52,70 @@ void test() {
     std::cout << std::endl;
 }
 
-int main(int argc, char** argv) {
-  if (argc < 4) {
-    std::cout << "USAGE: " << argv[0] << " <matrix A file> <matrix B file> <operation flag (0 matrix-vector, 1 matrix-matrix)>" << std::endl;
-    test();
+int allocate_matrix(FILE *f, int rows, int cols, int entries, double* out) {
+    int * I = new int[entries];
+    int * J = new int[entries];
+    double * val = new double[entries];
+    MM_typecode matcode;
+    if(mm_read_mtx_crd_data(f, rows, cols, entries, I, J, val, matcode) != 0) return 1;
+    for(int i=0; i<entries; i++) out[cols*I[i]+J[i]] = val[i];
+    delete[] I;
+    delete[] J;
+    delete[] val;
     return 0;
-  }
+}
+
+int main(int argc, char** argv) {
+    if (argc < 4) {
+        std::cout << "USAGE: " << argv[0] << " <matrix A file> <matrix B file> <operation flag (0 matrix-vector, 1 matrix-matrix)>" << std::endl;
+        test();
+        return 0;
+    }
+
+    // loading files
+    FILE *fA;
+    if ((fA = fopen(argv[1], "r")) == NULL) return 1;
+    int rowsA = 0;
+    int colsA = 0;
+    int entriesA = 0;
+    if (mm_read_mtx_crd_size(fA, &rowsA, &colsA, &entriesA) !=0) return 1;
+    std::cout << "File A stats: " << colsA << " columns " << rowsA << " rows " << entriesA << " entries" << std::endl;
+
+    FILE *fB;
+    if ((fB = fopen(argv[1], "r")) == NULL) return 1;
+    int rowsB = 0;
+    int colsB = 0;
+    int entriesB = 0;
+    if (mm_read_mtx_crd_size(fB, &rowsB, &colsB, &entriesB) !=0) return 1;
+    std::cout << "File B stats: " << colsB << " columns " << rowsB << " rows " << entriesB << " entries" << std::endl;
+
+    // allocate arrays
+    double * arrayA = new double[entriesA];
+    allocate_matrix(fA,rowsA,colsA,entriesA,arrayA);
+    double * arrayB = new double[entriesB];
+    allocate_matrix(fB,rowsB,colsB,entriesB,arrayB);
+    double * result;
+
+    int out = 0;
+    if (atoi(argv[3]) == 0) {
+        // matrix-vector
+        std::cout << "Performing matrix-vector operation" << std::endl;
+        result = new double[entriesB];
+        matrix_vector(rowsA, colsA, arrayA, arrayB, result);
+    } else if (atoi(argv[3]) == 1) {
+        // matrix-matrix
+        std::cout << "Performing matrix-matrix operation" << std::endl;
+        int resultRows = rowsA;
+        int resultCols = colsB;
+        result = new double[resultRows * resultCols];
+        matrix_matrix(rowsA, colsA, colsB, arrayA, arrayB, result);
+    } else {
+        std::cout << "Unknown operation flag" << std::endl;
+        out = 1;
+    }
+
+    delete[] result;
+    delete[] arrayA;
+    delete[] arrayB;
+    return out;
 }
