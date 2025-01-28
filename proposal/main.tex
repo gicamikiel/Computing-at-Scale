@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry}
+\usepackage{biblatex}
+\addbibresource{bib.bib}
+\geometry{letterpaper, margin=1in}
+
+\usepackage{float} % table captions on top
+\floatstyle{plaintop}
+\restylefloat{table}
+
+\begin{document}
+
+\begin{center}
+\bfseries Computing at Scale
+
+Project Proposal - Mikiel Gica
+\end{center}
+
+The term project will be to contribute to the Adaptation Controller software used for the NASA Phase I STTR unsteady grid adaptation project undertaken at SCOREC. The Adaptation Controller is a software component that communicates with a flow solver and a mesh/geometry library to apply anisotropic grid adaptation to large unsteady problems while leveraging parallelism. A link to the software GitHub page is included (access might have to be granted to view).
+
+\enspace
+
+\url{https://github.com/SCOREC/adaptiveController}
+
+\enspace
+
+In high speed flow problems sharp features such as strong shocks are present. The goal of the unsteady grid adaptation project is to adapt the mesh around these features. In order to do so, the mesh/geometry library requires a size field that is provided by the adaptation controller. 
+
+Currently, the size field is generated based on Hessians reconstructed from the flow solver solution. Some flow solvers can detect elements where a shock is present, and this information is currently not in use by the controller. The term project will specifically involve implementing alternative methods for computing the size field that involve information from the flow solver about detected shock elements.
+
+The current structure of the project will require a good grasp of build systems and CI/CD. The adaptation process is performed in-memory and in parallel, which will require fluent use of C++. Automated test cases using manufactured shock data and previous valid results will be implemented. 
+
+\end{document}
