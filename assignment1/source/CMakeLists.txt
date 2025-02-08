@@ -1,0 +1,2 @@
+add_library(numericalintegration scalarfunction.cpp)
+target_include_directories(numericalintegration PUBLIC ${CMAKE_CURRENT_LIST_DIR})
