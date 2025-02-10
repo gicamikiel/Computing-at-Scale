@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <unordered_map>
 #include <initializer_list>
+#include <iostream>
 
 #include "scalarfunction.hpp"
 
@@ -22,7 +23,8 @@ PolynomialFunction::PolynomialFunction(std::initializer_list<double> coefs_list)
 double PolynomialFunction::operator()(double x) const {
     double sum = 0;
     for (const auto [exp, coef] : coefs_) {
-        sum += exp == 0 ? coef : coef*std::pow(x,exp);
+        //std::cout << coef << "*" << x << "^ " << exp << " the sum is " << sum << "\n";
+        sum += coef*std::pow(x,exp);
     }
     return sum;
 }

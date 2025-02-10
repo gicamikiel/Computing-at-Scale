@@ -1,2 +1,2 @@
-add_executable(test_driver test_driver.cpp)
-target_link_libraries(test_driver PUBLIC numericalintegration)
+add_executable(unit_tests unit_tests.cpp)
+target_link_libraries(unit_tests PUBLIC numericalintegration)

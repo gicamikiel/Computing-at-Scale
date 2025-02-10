@@ -6,6 +6,8 @@
 
 class ScalarFunction {
     public:
+        // assume domain of x is -infinity to infinity
+        // implementers should throw invalid argument exception when x is out of domain
         virtual double operator()(double x) const;
 };
 
@@ -18,7 +20,7 @@ class PolynomialFunction : public ScalarFunction {
         // Initialize to function with zero coefficients f(x) = 0
         PolynomialFunction();
 
-        // Initialize using brace-enclosed initializers for small low-order polynomials
+        // Initialize using brace-enclosed initializers for small low-degree polynomials
         // First element corresponds to x^0
         PolynomialFunction(std::initializer_list<double> coefs_list);
         
