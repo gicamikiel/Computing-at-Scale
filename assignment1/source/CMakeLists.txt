@@ -1,2 +1,2 @@
-add_library(numericalintegration scalarfunction.cpp)
+add_library(numericalintegration scalarfunction.cpp integrationrule.cpp polynomial_integrate.cpp)
 target_include_directories(numericalintegration PUBLIC ${CMAKE_CURRENT_LIST_DIR})
