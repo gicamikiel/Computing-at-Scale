@@ -11,7 +11,6 @@
 #define LOW_WT_PT std::sqrt(3.0/7 + 2.0/7*std::sqrt(6.0/5))
 #define LOW_WT (18-std::sqrt(30))/36.0
 
-
 std::unordered_map<int, GaussLegendre> gl_rules = {
     {1, GaussLegendre({0}, {2.0})},
     {2, GaussLegendre({-1.0/std::sqrt(3), 1.0/std::sqrt(3)}, {1.0, 1.0})},
