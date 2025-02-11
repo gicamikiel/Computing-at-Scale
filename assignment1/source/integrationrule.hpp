@@ -7,14 +7,16 @@
 
 class IntegrationRule {
     public:
-        virtual double operator()(ScalarFunction function, double from, double to) const;
+        virtual double operator()(ScalarFunction& function, double from, double to) const;
 };
 
 class GaussLegendre : public IntegrationRule {
     public:
+        GaussLegendre();
+
         GaussLegendre(std::vector<double> xi_pts, std::vector<double> weights);
 
-        double operator()(ScalarFunction function, double from, double to) const override;
+        double operator()(ScalarFunction& function, double from, double to) const override;
 
         int num_pts() const;
 
@@ -35,14 +37,14 @@ class GaussLobatto : public GaussLegendre {
     public:
         using GaussLegendre::GaussLegendre;
 
-        double operator()(ScalarFunction function, double from, double to) const override;
+        double operator()(ScalarFunction& function, double from, double to) const override;
 };
 
 class GaussChebyshev : public IntegrationRule {
     public:
         GaussChebyshev(int num_pts);
 
-        double operator()(ScalarFunction function, double from, double to) const override;
+        double operator()(ScalarFunction& function, double from, double to) const override;
 
         GaussChebyshev operator++(int);
 
