@@ -7,9 +7,15 @@ using namespace std;
 #include "integrationrules.hpp"
 
 void display_help() {
-    std::cout << "usage: polynomial_integrate <a> <b> <rule> <# points> <c0x0> <c1x1> ...\n";
-    std::cout << "      where rule is 'gauss-legendre', 'gauss-lobatto' or 'gauss-chebyshev' and \n";
-    std::cout << "      each term of format cnxn represents polynomial term c_n*x^n\n";
+    std::cout << "usage: polynomial_integrate <a> <b> <rule> <# points> <c0x0> <c1x1> ... <cnxn>\n";
+    std::cout << "      <a> is the lower integration bound\n";
+    std::cout << "      <b> is the upper integration bound\n";
+    std::cout << "      <rule> is the integration rule, either 'gauss-legendre', 'gauss-lobatto' or 'gauss-chebyshev'\n";
+    std::cout << "      <# points> is the number of points evaluated by the integration rule\n";
+    std::cout << "      <cnxn> are polynomial terms c_nx^n (repeat for multiple n to define more than one term)\n";
+    std::cout << "\n";
+    std::cout << "example: polynomial_integrate 0.75 2.25 gauss-legendre 3 5x0 5x1\n";
+    std::cout << "      integrates polynomial f(x)=5x+5 from 0.75 to 2.5 using 3 point gauss-legendre quadrature\n";
 }
 
 int main(int argc, char *argv[])
