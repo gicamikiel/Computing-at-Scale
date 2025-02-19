@@ -63,8 +63,8 @@ int gauss_legendre_tests(PolynomialFunction funcs[], double from, double to, dou
         // k points can integrate exactly up to degree 2k-1
         for (int deg = 0; deg <= 2*pts-1; deg++) {
             PolynomialFunction func = funcs[deg];
-            GaussLegendre rule = gl_rules[pts];
-            double result = rule(func, from, to);
+            GaussQuadrature gauss_quad_rule = gl_rules[pts];
+            double result = gauss_quad_rule(func, from, to);
             std::cout << "Test if gauss-legendre with " << pts << " points integrates degree " << deg << " exactly \n";
             if(relative_error(result, ans[deg]) > tol) {
                 std::cout << "fail with " << result << " vs answer " << ans[deg] << "\n\n";
@@ -83,8 +83,8 @@ int gauss_lobatto_tests(PolynomialFunction funcs[], double from, double to, doub
         // k points can integrate exactly up to degree 2k-3
         for (int deg = 0; deg <= 2*pts-3; deg++) {
             PolynomialFunction func = funcs[deg];
-            GaussLobatto rule = glo_rules[pts];
-            double result = rule(func, from, to);
+            GaussQuadrature gauss_lob_rule = glo_rules[pts];
+            double result = gauss_lob_rule(func, from, to);
             std::cout << "Test if gauss-lobatto with " << pts << " points integrates degree " << deg << " exactly \n";
             if(relative_error(result, ans[deg]) > tol) {
                 std::cout << "fail with " << result << " vs answer " << ans[deg] << "\n\n";

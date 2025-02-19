@@ -10,11 +10,11 @@ class IntegrationRule {
         virtual double operator()(ScalarFunction& function, double from, double to) const;
 };
 
-class GaussLegendre : public IntegrationRule {
+class GaussQuadrature : public IntegrationRule {
     public:
-        GaussLegendre();
+        GaussQuadrature();
 
-        GaussLegendre(std::vector<double> xi_pts, std::vector<double> weights);
+        GaussQuadrature(std::vector<double> xi_pts, std::vector<double> weights);
 
         double operator()(ScalarFunction& function, double from, double to) const override;
 
@@ -31,13 +31,6 @@ class GaussLegendre : public IntegrationRule {
         double dx_dxi(double from, double to) const;
         // this is \frac{b-a}{2}\xi_i + \frac{a+b}{2}
         double xi_to_x(double xi, double from, double to) const;
-};
-
-class GaussLobatto : public GaussLegendre {
-    public:
-        using GaussLegendre::GaussLegendre;
-
-        double operator()(ScalarFunction& function, double from, double to) const override;
 };
 
 class GaussChebyshev : public IntegrationRule {
