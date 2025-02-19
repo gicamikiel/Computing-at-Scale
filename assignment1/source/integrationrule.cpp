@@ -45,7 +45,7 @@ double GaussLobatto::operator()(ScalarFunction& function, double from, double to
 }
 
 GaussChebyshev::GaussChebyshev(int num_pts) {
-    if(num_pts <= 0) throw std::invalid_argument("Error: cannot have negative or zero number of points");
+    if (num_pts <= 0) throw std::invalid_argument("Error: cannot have negative or zero number of points");
     num_pts_ = num_pts;
 }
 
@@ -54,7 +54,7 @@ GaussChebyshev::GaussChebyshev(int num_pts) {
 double GaussChebyshev::operator()(ScalarFunction& function, double from, double to) const {
     double out = 0;
     double coef = M_PI*(to-from)/2.0/num_pts_;
-    for(int i=1; i<=num_pts_; i++) {
+    for (int i=1; i<=num_pts_; i++) {
         double x_i = std::cos(M_PI*(2.0*i-1)/2.0/num_pts_);
         out += function((x_i+1)*(to-from)/2.0+from)*std::sqrt(1-x_i*x_i);
     }

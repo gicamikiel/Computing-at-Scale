@@ -43,19 +43,19 @@ int main(int argc, char *argv[])
     }
 
     IntegrationRule* rule;
-    if(num_pts < 1) {
+    if (num_pts < 1) {
         std::cout << "At least one point needed\n";
         return 1;
     }
     GaussChebyshev gc(num_pts);
-    if(rulename == "gauss-legendre") {
-        if(num_pts > 4) {
+    if (rulename == "gauss-legendre") {
+        if (num_pts > 4) {
             std::cout << "Only 1-4 points are supported\n";
             return 1;
         }
         rule = &gl_rules[num_pts];
     } else if (rulename == "gauss-lobatto") {
-        if(num_pts > 5 || num_pts < 3) {
+        if (num_pts > 5 || num_pts < 3) {
             std::cout << "Only 3-5 points are supported\n";
             return 1;
         }
@@ -68,4 +68,5 @@ int main(int argc, char *argv[])
 
     double out = (*rule)(p, from, to);
     std::cout << out << "\n";
+    return 0;
 }

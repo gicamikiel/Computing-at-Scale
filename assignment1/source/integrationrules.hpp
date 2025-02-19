@@ -18,7 +18,7 @@ std::unordered_map<int, GaussLegendre> gl_rules = {
     {4, GaussLegendre({-LOW_WT_PT, -HI_WT_PT, HI_WT_PT, LOW_WT_PT}, {LOW_WT, HI_WT, HI_WT, LOW_WT})}
 };
 
-std::map<int, GaussLobatto> glo_rules = {
+std::unordered_map<int, GaussLobatto> glo_rules = {
     {3, GaussLobatto({-1, 0, 1},{1.0/3, 4.0/3, 1.0/3})},
     {4, GaussLobatto({-1, -std::sqrt(1.0/5), std::sqrt(1.0/5), 1},{1.0/6, 5.0/6, 5.0/6, 1.0/6})},
     {5, GaussLobatto({-1, -std::sqrt(3.0/7), 0, std::sqrt(3.0/7), 1},{1.0/10, 49.0/90, 32.0/45, 49.0/90, 1.0/10})}
