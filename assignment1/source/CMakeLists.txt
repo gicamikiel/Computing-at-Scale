@@ -1,0 +1,6 @@
+add_library(numericalintegration scalarfunction.cpp integrationrule.cpp polynomial_integrate.cpp)
+target_include_directories(numericalintegration PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+
+add_executable(polynomial_integrate polynomial_integrate.cpp)
+target_link_libraries(polynomial_integrate PUBLIC numericalintegration)
+target_include_directories(polynomial_integrate PUBLIC ${CMAKE_CURRENT_LIST_DIR})
